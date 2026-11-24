@@ -1,41 +1,28 @@
-# Fase 5 - Evaluación Final POA (Fundamentos de Programación - 213022)
-# Problema 5: Cálculo de horas semanales y clasificación de jornada laboral
+# Problema 5: Calculo de horas semanales de un equipo
 
-# Matriz con 4 recursos: [Nombre, Lunes, Martes, Miércoles, Jueves, Viernes]
-horas_equipo = [
-    ["Camila Rojas", 8, 8, 9, 8, 8],
-    ["Andrés Torres", 9, 9, 8, 9, 8],
-    ["Valeria Gómez", 8, 7, 8, 8, 7],
-    ["Mateo Díaz", 10, 8, 9, 8, 8]
+empleados = [
+    ["Camila Rojas", [8, 9, 8, 8, 8]],
+    ["Andres Torres", [9, 8, 9, 9, 8]],
+    ["Valeria Gomez", [8, 7, 8, 8, 7]],
+    ["Mateo Diaz", [8, 9, 9, 8, 9]]
 ]
 
-UMBRAL_HORAS = 40
+def calcular_horas(horas_dias):
+    total = 0
+    for h in horas_dias:
+        total = total + h
+    return total
 
-
-def evaluar_jornada(fila_recurso):
-    """Calcula el total de horas semanales y clasifica la jornada laboral."""
-    nombre = fila_recurso[0]
-    horas_dias = fila_recurso[1:]
-    total_horas = sum(horas_dias)
-
-    if total_horas > UMBRAL_HORAS:
-        clasificacion = "Sobretiempo"
+def tipo_jornada(total_horas):
+    if total_horas > 40:
+        return "Sobretiempo"
     else:
-        clasificacion = "Horario estándar"
+        return "Horario estandar"
 
-    return nombre, total_horas, clasificacion
-
-
-def mostrar_reporte(matriz_horas):
-    """Imprime el informe de horas semanales y clasificación por recurso."""
-    print("=" * 60)
-    print("REPORTE SEMANAL DE HORAS Y JORNADA LABORAL")
-    print("=" * 60)
-    for fila in matriz_horas:
-        nombre, total, jornada = evaluar_jornada(fila)
-        print(f"Recurso: {nombre:<15} | Total horas: {total:<3} | Jornada: {jornada}")
-    print("=" * 60)
-
-
-if __name__ == "__main__":
-    mostrar_reporte(horas_equipo)
+print("--- Reporte semanal de horas ---")
+for persona in empleados:
+    nombre = persona[0]
+    horas = persona[1]
+    total = calcular_horas(horas)
+    jornada = tipo_jornada(total)
+    print(nombre, "| Total horas:", total, "| Jornada:", jornada)
